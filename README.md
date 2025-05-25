@@ -1,60 +1,34 @@
-# Invoice Utility System
+# 🧾 Invoice Extraction System
 
-A modular Python package for handling invoice data structures, file I/O, and validation utilities. Designed for extensibility and integration with OCR or document analysis pipelines.
-
-
-## 📦 Features
-
-### Models
-- Dataclasses for `Supplier`, `Client`, `InvoiceItem`, and `InvoiceData`
-- Convert invoice data to dictionary and JSON
-- Instantiate invoices from raw dictionary data
-
-### Utilities
-- Save data to JSON or plain text files
-- Recursively round numeric values to two decimal places
-- Fetch and validate image files from a directory
-
-### Validators
-- Validate:
-  - Google API keys
-  - Image files (type, size, readability)
-  - Directory existence and permissions
-  - Safe filenames (sanitization)
+A Python tool to extract structured invoice data (JSON) from image files using Google Gemini AI.
 
 
+## 🚀 Usage
 
-## 📥 Installation
+```python
+from invoice_runner import InvoiceProcessor, InvoiceProcessorConfig
+
+config = InvoiceProcessorConfig(
+    api_key="your-google-api-key",
+    image_dir="invoices",
+    output_dir="json_outputs"
+)
+
+processor = InvoiceProcessor(config)
+processor.process_all_images()  # or processor.process_image("invoice1.jpg")
+````
+
+
+Install dependencies:
 
 ```bash
-git clone https://github.com/ouassim-behlil/InvoiceDataExtractor.git
-cd InvoiceDataExtractor
 pip install -r requirements.txt
 ```
 
 
-## ✨ Example Usage
+## 📁 Output
 
-```python
-from src.models.invoice_data import InvoiceData
-
-invoice = InvoiceData(invoice_number="INV001", subtotal=100.00, total=120.00)
-print(invoice.to_json())
-```
-
-```python
-from src.utils.file_handler import FileHandler
-
-handler = FileHandler()
-handler.save_json(invoice.to_dict(), "output/invoice.json")
-```
+Each invoice image is saved as `.json` in the output folder.
 
 
-## ✅ Requirements
-
-* Python 3.8+
-
-
-## 📄 License
-
-MIT License — see [`LICENSE`](LICENSE) file for details.
+✅ Clean, simple, and ready to plug into your invoice automation workflow.
