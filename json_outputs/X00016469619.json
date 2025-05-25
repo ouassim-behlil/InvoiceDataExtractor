@@ -1,0 +1,39 @@
+{
+  "invoice_number": "050100035279",
+  "invoice_date": "2018-10-19",
+  "supplier": {
+    "name": "INDAH GIFT & HOME DECO",
+    "address": "27, JALAN DEDAP 13,\nTAMAN JOHOR JAYA,\n81100 JOHOR BAHRU, JOHOR.",
+    "phone": "07-3507405",
+    "email": null
+  },
+  "client": {
+    "name": "tan woon yann",
+    "address": null,
+    "phone": null,
+    "email": null
+  },
+  "items": [
+    {
+      "description": "ST-PRIVILEGE CARD/GD INDAH\n88888",
+      "quantity": 1.0,
+      "unit_price": 10.0,
+      "total_price": 10.0
+    },
+    {
+      "description": "GF-TABLE LAMP/STITCH <i>\n62483",
+      "quantity": 1.0,
+      "unit_price": 55.9,
+      "total_price": 55.9
+    }
+  ],
+  "subtotal": null,
+  "discount": 5.59,
+  "discount_percentage": 10.0,
+  "tax": null,
+  "shipping_cost": null,
+  "rounding_adjustment": -0.01,
+  "payment_terms": null,
+  "currency": "RM",
+  "total": 60.3
+}

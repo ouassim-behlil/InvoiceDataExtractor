@@ -1,0 +1,33 @@
+{
+  "invoice_number": "TD01167104",
+  "invoice_date": "2018-12-25",
+  "supplier": {
+    "name": "tan woon yann",
+    "address": "BOOK TAK (TAMAN DAYA) SDN BHD\n789417-W\nNO.53 55,57 & 59, JALAN SAGU 18,\nTAMAN DAYA,\n81100 JOHOR BAHRU,\nJOHOR.",
+    "phone": null,
+    "email": null
+  },
+  "client": {
+    "name": null,
+    "address": null,
+    "phone": null,
+    "email": null
+  },
+  "items": [
+    {
+      "description": "KF MODELLING CLAY KIDDY FISH",
+      "quantity": 1.0,
+      "unit_price": 9.0,
+      "total_price": 9.0
+    }
+  ],
+  "subtotal": 9.0,
+  "discount": 0.0,
+  "discount_percentage": null,
+  "tax": null,
+  "shipping_cost": null,
+  "rounding_adjustment": 0.0,
+  "payment_terms": null,
+  "currency": "RM",
+  "total": 9.0
+}

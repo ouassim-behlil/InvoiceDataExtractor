@@ -1,0 +1,51 @@
+{
+  "invoice_number": null,
+  "invoice_date": "2019-12-01",
+  "supplier": {
+    "name": "MR D.I.Y. (JOHOR) SDN BHD",
+    "address": "LOT 1851-A & 1851-B, JALAN KPB 6,\nKAWASAN PERINDUSTRIAN BALAKONG,\n43300 SERI KEMBANGAN, SELANGOR",
+    "phone": null,
+    "email": null
+  },
+  "client": {
+    "name": "tan woon yann",
+    "address": null,
+    "phone": null,
+    "email": null
+  },
+  "items": [
+    {
+      "description": "CHOPPING BOARD 35.5x25.5CM 803M#",
+      "quantity": 1.0,
+      "unit_price": 19.0,
+      "total_price": 19.0
+    },
+    {
+      "description": "AIR PRESSURE SPRAYER SX-575-1 1.5L",
+      "quantity": 1.0,
+      "unit_price": 8.02,
+      "total_price": 8.02
+    },
+    {
+      "description": "WAXCO WINDSHILED CLEANER 120ML",
+      "quantity": 1.0,
+      "unit_price": 3.02,
+      "total_price": 3.02
+    },
+    {
+      "description": "BOPP TAPE 48MM*100M CLEAR",
+      "quantity": 1.0,
+      "unit_price": 3.88,
+      "total_price": 3.88
+    }
+  ],
+  "subtotal": 33.92,
+  "discount": null,
+  "discount_percentage": null,
+  "tax": null,
+  "shipping_cost": null,
+  "rounding_adjustment": -0.02,
+  "payment_terms": null,
+  "currency": "RM",
+  "total": 33.9
+}
