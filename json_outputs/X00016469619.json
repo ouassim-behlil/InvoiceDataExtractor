@@ -16,18 +16,18 @@
   "items": [
     {
       "description": "ST-PRIVILEGE CARD/GD INDAH\n88888",
-      "quantity": 1.0,
+      "quantity": 1,
       "unit_price": 10.0,
       "total_price": 10.0
     },
     {
       "description": "GF-TABLE LAMP/STITCH <i>\n62483",
-      "quantity": 1.0,
+      "quantity": 1,
       "unit_price": 55.9,
       "total_price": 55.9
     }
   ],
-  "subtotal": null,
+  "subtotal": 65.9,
   "discount": 5.59,
   "discount_percentage": 10.0,
   "tax": null,
