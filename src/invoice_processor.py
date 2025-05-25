@@ -1,16 +1,17 @@
 import os
 import json
 import re
-import argparse
 from dataclasses import dataclass
 from google import genai
 from models.invoice_data import InvoiceData
+
 
 @dataclass
 class InvoiceProcessorConfig:
     api_key: str
     image_dir: str = "invoices"
     output_dir: str = "./json_outputs"
+
 
 class InvoiceProcessor:
     def __init__(self, config: InvoiceProcessorConfig):
@@ -134,25 +135,3 @@ class InvoiceProcessor:
             if filename.lower().endswith((".jpg", ".jpeg", ".png")):
                 image_path = os.path.join(self.image_dir, filename)
                 self.process_image(image_path)
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Process invoice images with Gemini AI.")
-    parser.add_argument("--api_key", required=True, help="Google Gemini API Key")
-    parser.add_argument("--image", help="Path to a single invoice image")
-    parser.add_argument("--image_dir", default="invoices", help="Directory containing invoice images")
-    parser.add_argument("--output_dir", default="./json_outputs", help="Directory to save JSON outputs")
-
-    args = parser.parse_args()
-
-    config = InvoiceProcessorConfig(api_key=args.api_key, image_dir=args.image_dir, output_dir=args.output_dir)
-    processor = InvoiceProcessor(config)
-
-    if args.image:
-        processor.process_image(args.image)
-    else:
-        processor.process_all_images()
-
-
-if __name__ == "__main__":
-    main()
