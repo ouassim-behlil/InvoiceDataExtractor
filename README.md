@@ -1,5 +1,5 @@
 # 🧾 Invoice Extraction System
-![Tests](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml/badge.svg)
+![Python Tests](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml/badge.svg)
 <!-- ![Tests](https://github.com/<user>/<repo>/actions/workflows/<workflow>.yml/badge.svg) -->
 
 
