@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock, mock_open
 from dataclasses import dataclass
 
-from invoice_processor import InvoiceProcessor, InvoiceProcessorConfig
+from src.invoice_processor import InvoiceProcessor, InvoiceProcessorConfig
 from src.models.invoice_data import InvoiceData
 
 
