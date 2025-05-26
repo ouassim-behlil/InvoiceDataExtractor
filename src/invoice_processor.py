@@ -3,7 +3,7 @@ import json
 import re
 from dataclasses import dataclass
 from google import genai
-from my_package.models.invoice_data import InvoiceData
+from src.models.invoice_data import InvoiceData
 
 
 @dataclass
