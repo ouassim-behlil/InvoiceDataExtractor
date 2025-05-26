@@ -3,7 +3,7 @@ import json
 import re
 from dataclasses import dataclass
 from google import genai
-from models.invoice_data import InvoiceData
+from my_package.models.invoice_data import InvoiceData
 
 
 @dataclass
@@ -73,10 +73,14 @@ class InvoiceProcessor:
 
         invoice_data.subtotal = round_optional(invoice_data.subtotal)
         invoice_data.discount = round_optional(invoice_data.discount)
-        invoice_data.discount_percentage = round_optional(invoice_data.discount_percentage)
+        invoice_data.discount_percentage = round_optional(
+            invoice_data.discount_percentage
+        )
         invoice_data.tax = round_optional(invoice_data.tax)
         invoice_data.shipping_cost = round_optional(invoice_data.shipping_cost)
-        invoice_data.rounding_adjustment = round_optional(invoice_data.rounding_adjustment)
+        invoice_data.rounding_adjustment = round_optional(
+            invoice_data.rounding_adjustment
+        )
         invoice_data.total = round_optional(invoice_data.total)
 
         for item in invoice_data.items:
@@ -98,7 +102,7 @@ class InvoiceProcessor:
 
     def process_image(self, image_path: str):
         filename = os.path.basename(image_path)
-        print(f"\U0001F4C4 Processing: {filename}")
+        print(f"\U0001f4c4 Processing: {filename}")
         uploaded_file = self.client.files.upload(file=image_path)
 
         response = self.client.models.generate_content(
@@ -122,7 +126,9 @@ class InvoiceProcessor:
                     f.write(invoice.to_json(indent=2))
                 print(f"✅ JSON saved: {json_filename}")
             except Exception as e:
-                print(f"⚠️ Failed to create InvoiceData object for {filename}: {e}. Saving raw JSON.")
+                print(
+                    f"⚠️ Failed to create InvoiceData object for {filename}: {e}. Saving raw JSON."
+                )
                 with open(output_path, "w", encoding="utf-8") as f:
                     json.dump(result, f, indent=2, ensure_ascii=False)
         else:
