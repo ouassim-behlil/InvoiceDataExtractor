@@ -1,4 +1,6 @@
 # 🧾 Invoice Extraction System
+![Tests](https://github.com/<user>/<repo>/actions/workflows/<workflow>.yml/badge.svg)
+
 
 A Python tool to extract structured invoice data (JSON) from image files using Google Gemini AI.
 
