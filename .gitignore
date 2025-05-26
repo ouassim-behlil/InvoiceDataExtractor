@@ -1,3 +1,5 @@
 invoices/
 __pycache__/
 json_outputs/
+api_key.txt
+process_image.py
