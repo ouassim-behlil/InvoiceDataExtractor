@@ -91,7 +91,7 @@ class InvoiceProcessor:
     def _extract_json(self, response_text):
         match = re.search(r"\{[\s\S]+\}", response_text)
         if not match:
-            return None
+            return None  # Changed: Now returns None when no JSON is found
         json_str = match.group().replace("\n", "")
         json_str = re.sub(r",\s*\}", "}", json_str)
         json_str = re.sub(r",\s*\]", "]", json_str)
@@ -102,7 +102,7 @@ class InvoiceProcessor:
 
     def process_image(self, image_path: str):
         filename = os.path.basename(image_path)
-        print(f"\U0001f4c4 Processing: {filename}")
+        print(f"📄 Processing: {filename}")
         uploaded_file = self.client.files.upload(file=image_path)
 
         response = self.client.models.generate_content(
