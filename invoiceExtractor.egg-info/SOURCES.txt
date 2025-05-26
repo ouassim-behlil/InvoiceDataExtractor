@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+invoiceExtractor.egg-info/PKG-INFO
+invoiceExtractor.egg-info/SOURCES.txt
+invoiceExtractor.egg-info/dependency_links.txt
+invoiceExtractor.egg-info/top_level.txt
+src/__init__.py
+src/invoice_processor.py
+tests/test_invoice_data.py
