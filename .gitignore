@@ -3,4 +3,21 @@ __pycache__/
 json_outputs/
 api_key.txt
 process_image.py
+# Exclude temporary and output files
+*.egg-info/
+temp_invoice_image.*
+# Exclude test outputs
+*.pytest_cache/
+# Exclude Jupyter notebook checkpoints
+.ipynb_checkpoints/
+# Exclude VSCode settings
+.vscode/
+# Exclude OS files
+.DS_Store
+Thumbs.db
+# Exclude Python bytecode
+*.pyc
+*.pyo
+*.pyd
+# Exclude the Streamlit app file
 app.py

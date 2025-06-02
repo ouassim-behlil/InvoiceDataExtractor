@@ -1,15 +1,19 @@
 # Invoice Extractor & Validator
 
 ## Overview
-This project provides an end-to-end workflow for extracting structured invoice data from images using Google Gemini AI, and validating the extracted data for logical and mathematical consistency. It features a modern Streamlit web app for easy interaction and visual comparison between the original invoice image and the extracted/validated data.
+This project provides a complete workflow for extracting structured data from invoice images using Google Gemini AI, and validating the extracted data for correctness. The solution includes a modern Streamlit web app for user interaction, robust backend validation, and automated tests.
 
-## Workflow
-1. **User uploads an invoice image** via the Streamlit web interface.
-2. **The image is sent to the Gemini AI model** (via the `Processor` class) which extracts relevant invoice fields and returns a structured JSON.
-3. **The extracted data is displayed** as non-editable fields in the web app, grouped by logical sections (Invoice, Supplier, Client, Items, Summary).
-4. **The extracted data is validated** using the `validate_invoice_data` function, which checks for missing fields, type errors, and mathematical consistency (e.g., totals, item calculations).
-5. **Validation results are shown** side-by-side with the extracted data, highlighting any errors or confirming validity.
-6. **The user can visually compare** the uploaded image and the extracted/validated data for accuracy and completeness.
+---
+
+## Workflow Summary
+1. **User uploads an invoice image** via the web interface.
+2. **Image is processed by Gemini AI** to extract invoice fields as JSON.
+3. **Extracted data is displayed** as non-editable fields for easy review.
+4. **Validation logic checks** the extracted data for completeness, type correctness, and mathematical consistency.
+5. **Validation results are shown** alongside the extracted data.
+6. **Temporary files are cleaned up** after processing.
+
+---
 
 ## Detailed Process Explanation
 
@@ -22,6 +26,12 @@ This project provides an end-to-end workflow for extracting structured invoice d
   - It sends the image and a detailed prompt describing the required JSON structure.
   - The model returns a JSON string with all relevant invoice fields (invoice number, date, supplier/client info, items, totals, etc.).
   - The processor extracts and parses this JSON from the model's response.
+
+#### _Processor Class Details_
+- **Initialization:** Requires a valid API key to create a Gemini client.
+- **Prompt:** The prompt instructs the model to return a strict JSON structure, using `null` for missing values.
+- **Image Upload:** The image is uploaded to the Gemini API, and the model is invoked with the image and prompt.
+- **JSON Extraction:** The response is parsed to extract the JSON block, which is then loaded as a Python dictionary (or returned as a string if parsing fails).
 
 ### 3. Display of Extracted Data
 - The extracted invoice data is shown as non-editable fields in the Streamlit app, grouped for clarity:
@@ -39,6 +49,17 @@ This project provides an end-to-end workflow for extracting structured invoice d
   - Checks mathematical consistency (e.g., subtotal matches sum of items, total matches calculation with discounts/tax/shipping, item totals are correct).
   - Reports all errors found, or confirms validity if all checks pass.
 
+#### _Validation Logic Details_
+- **Type Checking:** Ensures fields like `total`, `subtotal`, `tax`, etc. are numeric, and `quantity` is an integer.
+- **Required Fields:** Checks for presence and non-emptiness of all required fields (invoice number, date, supplier/client info, items, totals).
+- **Structure Validation:** Ensures supplier and client are objects, items is a list, and each item has required fields.
+- **Mathematical Consistency:**
+  - Each item's `total_price` must equal `quantity * unit_price`.
+  - `subtotal` must equal the sum of all item `total_price` values.
+  - `total` must match the sum of subtotal, tax, shipping, discounts, and rounding adjustments.
+  - Discount amount and percentage must be consistent if both are present.
+- **Error Reporting:** All validation errors are collected and returned for display.
+
 ### 5. Validation Results Display
 - Validation results are shown next to the extracted data in the app:
   - If valid, a success message is shown.
@@ -46,6 +67,17 @@ This project provides an end-to-end workflow for extracting structured invoice d
 
 ### 6. Clean-up
 - The temporary image file is deleted after processing to keep the workspace clean.
+
+---
+
+## File Structure
+- `src/_processor.py` — Handles AI extraction from images.
+- `src/utils/invoice_checker.py` — Validates extracted invoice data.
+- `tests/` — Pytest-based tests for validation logic.
+- `requirements.txt` — Python dependencies.
+- `.gitignore` — Excludes app.py and other non-source files from version control.
+
+---
 
 ## How to Run
 1. Install requirements:
@@ -59,17 +91,11 @@ This project provides an end-to-end workflow for extracting structured invoice d
 3. Enter your Google GenAI API key and upload an invoice image.
 4. Review the extracted and validated data side-by-side with the original image.
 
-## File Structure
-- `app.py` — Streamlit web app for user interaction.
-- `src/_processor.py` — Handles AI extraction from images.
-- `src/utils/invoice_checker.py` — Validates extracted invoice data.
-- `tests/` — Pytest-based tests for validation logic.
-- `requirements.txt` — Python dependencies.
+---
 
 ## Notes
 - The app is designed for accuracy, clarity, and ease of use.
 - All validation logic is robust and thoroughly tested.
 - The UI is modern, responsive, and supports easy visual comparison.
 
----
 For any issues or contributions, please open an issue or pull request.
