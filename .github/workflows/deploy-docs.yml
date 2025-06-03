@@ -19,16 +19,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -41,19 +36,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install mkdocs-material mkdocs-include-markdown-plugin
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
       - name: Build documentation
-        run: |
-          mkdocs build
-          cp site/index.html site/README.md || true
+        run: mkdocs build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          path: 'site'
+          name: github-pages
+          path: site/
+          if-no-files-found: error
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
