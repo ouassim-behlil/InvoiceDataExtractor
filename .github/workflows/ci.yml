@@ -71,15 +71,12 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build documentation
-        run: mkdocs build
-
+        run: mkdocs build      
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: site/
-
-      - name: Deploy to GitHub Pages
+          path: site/      - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
