@@ -44,10 +44,10 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v4      - name: Build documentation
+        run: mkdocs build
 
-      - name: Build documentation
-        run: mkdocs build      - name: Upload Pages artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: site/
