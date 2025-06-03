@@ -1,0 +1,47 @@
+site_name: Invoice Extractor Documentation
+site_description: Documentation for the Invoice Extractor using Google's Gemini model
+repo_url: https://github.com/ouassim-behlil/InvoiceDataExtractor
+repo_name: ouassim-behlil/InvoiceDataExtractor
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - search.highlight
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - API Documentation: api.md
+  - Examples: examples.md
+  - Validation: validation.md
+  - Troubleshooting: troubleshooting.md
+  - FAQ: faq.md
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - include-markdown

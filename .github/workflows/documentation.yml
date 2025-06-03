@@ -1,0 +1,29 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - '.github/workflows/documentation.yml'
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install MkDocs
+        run: |
+          pip install mkdocs-material
+          pip install mkdocs-include-markdown-plugin
+
+      - name: Deploy Documentation
+        run: |
+          mkdocs gh-deploy --force
