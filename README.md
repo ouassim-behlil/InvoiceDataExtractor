@@ -1,5 +1,10 @@
 # Invoice Extractor
 
+[![Documentation](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/documentation.yml/badge.svg)](https://ouassim-behlil.github.io/InvoiceDataExtractor)
+[![Python Tests](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml/badge.svg)](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml)
+[![codecov](https://codecov.io/gh/ouassim-behlil/InvoiceDataExtractor/branch/main/graph/badge.svg)](https://codecov.io/gh/ouassim-behlil/InvoiceDataExtractor)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A Python-based tool that uses Google's Gemini model to extract structured information from invoice images.
 
 ## Documentation
