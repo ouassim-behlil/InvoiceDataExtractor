@@ -38,7 +38,13 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - name: Deploy Documentation
-        run: mkdocs gh-deploy --force
+      - name: Build documentation
+        run: mkdocs build
+
+      - name: Deploy to main branch
+        run: |
+          git add site/
+          git commit -m "Update documentation"
+          git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
