@@ -28,19 +28,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install google-genai
         pip install -r requirements.txt
-        pip install pytest pytest-cov coverage codecov
+        pip install pytest pytest-cov
 
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$GITHUB_WORKSPACE/" >> $GITHUB_ENV
 
-    - name: Run tests with coverage
+    - name: Run tests
       run: |
-        pytest --cov=./ --cov-report=xml
+        pytest --junitxml=pytest.xml --cov-report=term-missing
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage.xml
-        flags: unittests
-        fail_ci_if_error: true
+        name: pytest-results-${{ matrix.python-version }}
+        path: pytest.xml
