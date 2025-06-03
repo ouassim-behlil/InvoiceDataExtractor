@@ -2,6 +2,10 @@
 
 A Python-based tool that uses Google's Gemini model to extract structured information from invoice images.
 
+## Documentation
+
+Full documentation is available at: [https://ouassim-behlil.github.io/InvoiceDataExtractor](https://ouassim-behlil.github.io/InvoiceDataExtractor)
+
 ## Overview
 
 This project provides a robust solution for extracting data from invoice images and converting it into structured JSON format. It includes validation to ensure mathematical consistency and proper data types in the extracted information.
