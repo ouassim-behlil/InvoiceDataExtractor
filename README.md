@@ -27,7 +27,7 @@ This project provides a robust solution for extracting data from invoice images 
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-url]
+git clone https://github.com/ouassim-behlil/InvoiceDataExtractor.git
 cd invoiceExtractor
 ```
 
