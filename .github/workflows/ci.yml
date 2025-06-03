@@ -1,13 +1,10 @@
-name: Documentation
+name: CI
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - '.github/workflows/documentation.yml'
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 permissions:
   contents: write
@@ -19,7 +16,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13"]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$GITHUB_WORKSPACE/" >> $GITHUB_ENV
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest
+    
+    - name: Run tests
+      run: |
+        pytest tests/
+
+  docs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -34,7 +58,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.13'
           cache: pip
 
       - name: Install dependencies
@@ -44,7 +68,9 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4      - name: Build documentation
+        uses: actions/configure-pages@v4
+
+      - name: Build documentation
         run: mkdocs build
 
       - name: Upload Pages artifact
