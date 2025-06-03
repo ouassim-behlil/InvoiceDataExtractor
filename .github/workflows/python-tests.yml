@@ -35,11 +35,9 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest --junitxml=pytest.xml --cov-report=term-missing
-
-    - name: Upload Test Results
+        pytest --junitxml=pytest.xml --cov-report=term-missing    - name: Upload Test Results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pytest-results-${{ matrix.python-version }}
         path: pytest.xml

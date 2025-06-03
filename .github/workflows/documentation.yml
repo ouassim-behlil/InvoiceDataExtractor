@@ -47,10 +47,8 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build documentation
-        run: mkdocs build
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        run: mkdocs build      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
           path: site/
 
