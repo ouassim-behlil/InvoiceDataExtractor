@@ -6,24 +6,39 @@ on:
       - main
     paths:
       - 'docs/**'
+      - 'mkdocs.yml'
       - '.github/workflows/documentation.yml'
+
+permissions:
+  contents: write
 
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Python
-        uses: actions/setup-python@v2
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
+          cache: 'pip'
 
-      - name: Install MkDocs
+      - name: Install dependencies
         run: |
-          pip install mkdocs-material
-          pip install mkdocs-include-markdown-plugin
+          python -m pip install --upgrade pip
+          pip install mkdocs-material mkdocs-include-markdown-plugin
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Deploy Documentation
-        run: |
-          mkdocs gh-deploy --force
+        run: mkdocs gh-deploy --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
