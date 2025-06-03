@@ -7,13 +7,13 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
+      - '.github/workflows/deploy-docs.yml'
 
 permissions:
   contents: write
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -45,7 +45,9 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Build documentation
-        run: mkdocs build
+        run: |
+          mkdocs build
+          cp site/index.html site/README.md || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
