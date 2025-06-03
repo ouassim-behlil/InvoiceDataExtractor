@@ -1,101 +1,251 @@
-# Invoice Extractor & Validator
+# Invoice Extractor
+
+A Python-based tool that uses Google's Gemini model to extract structured information from invoice images.
 
 ## Overview
-This project provides a complete workflow for extracting structured data from invoice images using Google Gemini AI, and validating the extracted data for correctness. The solution includes a modern Streamlit web app for user interaction, robust backend validation, and automated tests.
 
----
+This project provides a robust solution for extracting data from invoice images and converting it into structured JSON format. It includes validation to ensure mathematical consistency and proper data types in the extracted information.
 
-## Workflow Summary
-1. **User uploads an invoice image** via the web interface.
-2. **Image is processed by Gemini AI** to extract invoice fields as JSON.
-3. **Extracted data is displayed** as non-editable fields for easy review.
-4. **Validation logic checks** the extracted data for completeness, type correctness, and mathematical consistency.
-5. **Validation results are shown** alongside the extracted data.
-6. **Temporary files are cleaned up** after processing.
+## Features
 
----
+- Extract key invoice information including:
+  - Invoice number and date
+  - Supplier and client details
+  - Line items with quantities and prices
+  - Subtotals, taxes, and discounts
+- Validate mathematical consistency of extracted values
+- Strict type checking for numeric fields
+- Comprehensive error reporting
 
-## Detailed Process Explanation
+## Prerequisites
 
-### 1. Image Upload & Display
-- The user provides their Google GenAI API key and uploads an invoice image (JPG/PNG).
-- The image is saved temporarily and displayed in the app with zoom capability for easy review.
+- Python 3.7 or higher
+- Google API key for Gemini model
+- Required Python packages (see Installation section)
 
-### 2. Extraction with Gemini AI
-- The `Processor` class (in `src/_processor.py`) handles communication with the Gemini API:
-  - It sends the image and a detailed prompt describing the required JSON structure.
-  - The model returns a JSON string with all relevant invoice fields (invoice number, date, supplier/client info, items, totals, etc.).
-  - The processor extracts and parses this JSON from the model's response.
+## Installation
 
-#### _Processor Class Details_
-- **Initialization:** Requires a valid API key to create a Gemini client.
-- **Prompt:** The prompt instructs the model to return a strict JSON structure, using `null` for missing values.
-- **Image Upload:** The image is uploaded to the Gemini API, and the model is invoked with the image and prompt.
-- **JSON Extraction:** The response is parsed to extract the JSON block, which is then loaded as a Python dictionary (or returned as a string if parsing fails).
+1. Clone the repository:
+```bash
+git clone [your-repository-url]
+cd invoiceExtractor
+```
 
-### 3. Display of Extracted Data
-- The extracted invoice data is shown as non-editable fields in the Streamlit app, grouped for clarity:
-  - Invoice details (number, date)
-  - Supplier and client info
-  - Line items (description, quantity, unit price, total price)
-  - Summary fields (subtotal, discount, tax, shipping, total, etc.)
-- This allows the user to quickly review the structured data.
+2. Install required packages:
+```bash
+pip install -r requirements.txt
+```
 
-### 4. Validation of Extracted Data
-- The `validate_invoice_data` function (in `src/utils/invoice_checker.py`) performs comprehensive checks:
-  - Ensures all required fields are present and not empty.
-  - Checks that numeric fields are of the correct type (e.g., quantity is integer, totals are decimal).
-  - Validates the structure of supplier, client, and items.
-  - Checks mathematical consistency (e.g., subtotal matches sum of items, total matches calculation with discounts/tax/shipping, item totals are correct).
-  - Reports all errors found, or confirms validity if all checks pass.
+3. Create an `api_key.txt` file in the project root and add your Google API key:
+```bash
+echo "your-api-key-here" > api_key.txt
+```
 
-#### _Validation Logic Details_
-- **Type Checking:** Ensures fields like `total`, `subtotal`, `tax`, etc. are numeric, and `quantity` is an integer.
-- **Required Fields:** Checks for presence and non-emptiness of all required fields (invoice number, date, supplier/client info, items, totals).
-- **Structure Validation:** Ensures supplier and client are objects, items is a list, and each item has required fields.
-- **Mathematical Consistency:**
-  - Each item's `total_price` must equal `quantity * unit_price`.
-  - `subtotal` must equal the sum of all item `total_price` values.
-  - `total` must match the sum of subtotal, tax, shipping, discounts, and rounding adjustments.
-  - Discount amount and percentage must be consistent if both are present.
-- **Error Reporting:** All validation errors are collected and returned for display.
+## Usage
 
-### 5. Validation Results Display
-- Validation results are shown next to the extracted data in the app:
-  - If valid, a success message is shown.
-  - If errors are found, each error is listed for the user to review and correct as needed.
+### Basic Usage
 
-### 6. Clean-up
-- The temporary image file is deleted after processing to keep the workspace clean.
+1. Place your invoice images in the `invoices` directory.
 
----
+2. Use the processor to extract information:
 
-## File Structure
-- `src/_processor.py` — Handles AI extraction from images.
-- `src/utils/invoice_checker.py` — Validates extracted invoice data.
-- `tests/` — Pytest-based tests for validation logic.
-- `requirements.txt` — Python dependencies.
-- `.gitignore` — Excludes app.py and other non-source files from version control.
+```python
+from src._processor import Processor
 
----
+# Initialize the processor with your API key
+with open('api_key.txt', 'r') as f:
+    api_key = f.read().strip()
+processor = Processor(api_key)
 
-## How to Run
-1. Install requirements:
-   ```sh
-   pip install -r requirements.txt
-   ```
-2. Start the Streamlit app:
-   ```sh
-   streamlit run app.py
-   ```
-3. Enter your Google GenAI API key and upload an invoice image.
-4. Review the extracted and validated data side-by-side with the original image.
+# Extract information from an image
+result = processor.extract_json_from_image('invoices/your_invoice.jpg')
+```
 
----
+### Data Validation
 
-## Notes
-- The app is designed for accuracy, clarity, and ease of use.
-- All validation logic is robust and thoroughly tested.
-- The UI is modern, responsive, and supports easy visual comparison.
+The project includes a comprehensive validation system (`invoice_checker.py`) that ensures:
 
-For any issues or contributions, please open an issue or pull request.
+- All required fields are present
+- Numeric fields have correct data types
+- Mathematical consistency across all calculations
+- Valid ranges for percentage values
+- String field constraints
+
+## Output Format
+
+The extracted data is returned in a structured JSON format:
+
+```json
+{
+  "invoice_number": string or null,
+  "invoice_date": string (YYYY-MM-DD) or null,
+  "supplier": {
+    "name": string or null,
+    "address": string or null,
+    "phone": string or null,
+    "email": string or null
+  },
+  "client": {
+    "name": string or null,
+    "address": string or null,
+    "phone": string or null,
+    "email": string or null
+  },
+  "items": [
+    {
+      "description": string or null,
+      "quantity": number or null,
+      "unit_price": number or null,
+      "total_price": number or null
+    }
+  ],
+  "subtotal": number or null,
+  "discount": number or null,
+  "discount_percentage": number or null,
+  "tax": number or null,
+  "shipping_cost": number or null,
+  "rounding_adjustment": number or null,
+  "payment_terms": string or null,
+  "currency": string or null,
+  "total": number or null
+}
+```
+
+## Validation Rules
+
+- Invoice number, date, and total are required fields
+- Supplier and client must have at least a name
+- Items array must contain at least one item
+- Each item must have description, quantity, unit_price, and total_price
+- Quantity must be an integer
+- Unit prices and totals must be numeric
+- Discount percentage must be between 0 and 100
+- All calculations must be mathematically consistent
+
+## Error Handling
+
+The validation process returns a result object:
+
+```python
+{
+    "is_valid": boolean,
+    "errors": list of string error messages,
+    "total_errors": number
+}
+```
+
+## Internal Process Flow
+
+The invoice extraction process follows these steps:
+
+1. **Image Upload**
+   - Place invoice images in the `invoices` directory
+   - Supported formats: JPG, PNG
+   - Images should be clear and readable for optimal results
+
+2. **OCR Processing**
+   - The Google Gemini model processes the image
+   - Text and layout information is extracted
+   - Structure and relationships between elements are analyzed
+
+3. **Data Extraction**
+   - The processor applies a specialized prompt to extract structured data
+   - Key fields are identified and mapped to JSON structure
+   - Values are converted to appropriate data types
+   - Relationships between items, totals, and calculations are preserved
+
+4. **Validation**
+   - All extracted data goes through rigorous validation:
+     1. Field presence check for required information
+     2. Data type validation for all fields
+     3. Mathematical validation of calculations
+     4. Business rule validation (e.g., quantity as integers)
+     5. Consistency checks between related fields
+
+5. **Result Generation**
+   - Valid data is returned in structured JSON format
+   - Any validation errors are collected and reported
+   - Final output includes validation status and error count
+
+### Error Handling Examples
+
+Here are some common validation errors and their meanings:
+
+```python
+# Missing required field
+{"is_valid": false, "errors": ["Missing required field: invoice_number"], "total_errors": 1}
+
+# Invalid data type
+{"is_valid": false, "errors": ["Field 'total' must be numeric"], "total_errors": 1}
+
+# Mathematical inconsistency
+{"is_valid": false, "errors": ["Total calculation mismatch: calculated total (105.00) ≠ given total (100.00)"], "total_errors": 1}
+
+# Multiple errors
+{"is_valid": false, "errors": [
+    "Item 1: quantity must be an integer",
+    "Subtotal mismatch: sum of line items (95.00) ≠ subtotal (90.00)"
+], "total_errors": 2}
+```
+
+### Best Practices
+
+1. **Image Quality**
+   - Use high-resolution, clear images
+   - Ensure good lighting and contrast
+   - Avoid skewed or rotated images
+   - Remove any obstructions or overlays
+
+2. **Data Validation**
+   - Always check the validation result before using the data
+   - Handle all potential error cases in your code
+   - Log validation errors for debugging
+   - Consider implementing retry logic for failed extractions
+
+3. **Performance**
+   - Process images in batches when possible
+   - Implement caching if processing the same image multiple times
+   - Monitor API usage and rate limits
+   - Consider implementing queue systems for large-scale processing
+
+## Testing
+
+Run the test suite to verify functionality:
+
+```bash
+pytest tests/
+```
+
+The test suite includes comprehensive tests for:
+- Data type validation
+- Mathematical consistency
+- Required field presence
+- Edge cases and error conditions
+
+## Project Structure
+
+```
+invoiceExtractor/
+├── src/
+│   ├── _processor.py     # Main processing logic
+│   └── utils/
+│       └── invoice_checker.py  # Validation utilities
+├── tests/
+│   └── test_invoice_checker.py # Test suite
+├── invoices/             # Directory for invoice images
+├── api_key.txt          # API key storage
+├── requirements.txt     # Project dependencies
+└── README.md           # This file
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License.
