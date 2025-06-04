@@ -26,11 +26,9 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests/
-
-    - name: Upload test results
+        pytest tests/    - name: Upload test results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v3.1.3
       with:
         name: pytest-results
         path: |
