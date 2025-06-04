@@ -1,14 +1,16 @@
 # Invoice Extractor
 
-[![Documentation](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/documentation.yml/badge.svg)](https://ouassim-behlil.github.io/InvoiceDataExtractor)
-[![Python Tests](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml/badge.svg)](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/python-tests.yml)
+[![CI](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/ci.yml/badge.svg)](https://github.com/ouassim-behlil/InvoiceDataExtractor/actions/workflows/ci.yml)
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Documentation Status](https://img.shields.io/badge/docs-passing-brightgreen.svg)](https://ouassim-behlil.github.io/InvoiceDataExtractor/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ouassim-behlil/InvoiceDataExtractor/pulls)
 
 A Python-based tool that uses Google's Gemini model to extract structured information from invoice images.
 
 ## Documentation
 
-Full documentation is available at: [https://ouassim-behlil.github.io/InvoiceDataExtractor](https://ouassim-behlil.github.io/InvoiceDataExtractor)
+Full documentation is available at: [Documentation](https://ouassim-behlil.github.io/InvoiceDataExtractor/)
 
 ## Overview
 
