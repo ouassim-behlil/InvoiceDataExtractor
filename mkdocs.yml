@@ -3,8 +3,10 @@ site_description: Documentation for the Invoice Extractor using Google's Gemini 
 repo_url: https://github.com/ouassim-behlil/InvoiceDataExtractor
 repo_name: ouassim-behlil/InvoiceDataExtractor
 site_url: https://ouassim-behlil.github.io/InvoiceDataExtractor/
+docs_dir: docs
+site_dir: site
 strict: true
-use_directory_urls: false
+use_directory_urls: true
 
 theme:
   name: material
