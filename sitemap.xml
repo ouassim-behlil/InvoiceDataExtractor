@@ -1,3 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/api/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/examples/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/faq/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/getting_started/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/troubleshooting/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
+    <url>
+         <loc>https://ouassim-behlil.github.io/InvoiceDataExtractor/validation/</loc>
+         <lastmod>2025-06-04</lastmod>
+    </url>
 </urlset>
