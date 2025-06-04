@@ -76,7 +76,8 @@ jobs:
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4      - name: Build documentation
+        uses: actions/configure-pages@v4      
+      - name: Build documentation
         run: |
           mkdocs build --clean
           cp site/index.html site/404.html
